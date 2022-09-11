@@ -88,7 +88,7 @@ class Site extends Public_Controller
             } else {
                 $lang_array = array('lang_id' => $setting_result[0]['lang_id'], 'language' => $setting_result[0]['language']);
             }
-
+            
             if ($result) {
                 if ($result->is_active) {
                     if ($result->surname != "") {
@@ -96,7 +96,7 @@ class Site extends Public_Controller
                     } else {
                         $logusername = $result->name;
                     }
-
+                    
                     $session_data = array(
                         'id'              => $result->id,
                         'username'        => $logusername,
@@ -115,20 +115,22 @@ class Site extends Public_Controller
                         'theme'           => $setting_result[0]['theme'],
                         'gender'          => $result->gender,
                     );
-                     if($session_data['is_rtl'] == "disabled"){
-                    $language_result1 = $this->language_model->get($lang_array['lang_id']);
-                    if ($this->customlib->get_rtl_languages($language_result1['short_code'])) {
-                        $session_data['is_rtl'] = 'enabled';
-                    } else {
-                        $session_data['is_rtl'] = 'disabled';
+                    if($session_data['is_rtl'] == "disabled"){
+                        $language_result1 = $this->language_model->get($lang_array['lang_id']);
+                        if ($this->customlib->get_rtl_languages($language_result1['short_code'])) {
+                            $session_data['is_rtl'] = 'enabled';
+                        } else {
+                            $session_data['is_rtl'] = 'disabled';
+                        }
                     }
-                     }
                     $this->session->set_userdata('admin', $session_data);
-
+                    
                     $role      = $this->customlib->getStaffRole();
                     $role_name = json_decode($role)->name;
                     $this->customlib->setUserLog($this->input->post('username'), $role_name);
-
+                    
+                    // print_r(isset($_SESSION['redirect_to']));
+                    // die();
                     if (isset($_SESSION['redirect_to'])) {
                         redirect($_SESSION['redirect_to']);
                     } else {
