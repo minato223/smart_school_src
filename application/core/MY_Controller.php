@@ -163,6 +163,10 @@ class Front_Controller extends CI_Controller
     protected $page_title     = '';
     protected $theme_path     = '';
     protected $front_setting  = '';
+    const API_ROUTES = [
+        "/api_login"=>"../application/api/login_api.php",
+        "/api/create_attendance"=>"../application/api/create_attendance.php",
+    ];
 
     public function __construct()
     {
@@ -181,7 +185,12 @@ class Front_Controller extends CI_Controller
         $this->load->model('frontcms_setting_model');
 
         $this->front_setting = $this->frontcms_setting_model->get();
-        
+        if (isset(self::API_ROUTES[$_SERVER["PATH_INFO"]])) {
+            require_once BASEPATH.self::API_ROUTES[$_SERVER["PATH_INFO"]];
+            die();
+        }
+        // if ($_SERVER["PATH_INFO"]==="/api_login") {
+        // }
         if (!$this->front_setting) {
             redirect('site/userlogin');
         } else {

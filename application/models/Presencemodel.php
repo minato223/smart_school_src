@@ -25,6 +25,17 @@ class Presencemodel extends MY_Model {
         return $array;
     }
 
+    public function createAttendance($employee_id)
+    {
+        $query = $this->db->select()->from('staff')->where('employee_id', $employee_id)->get();
+        if (!empty($query->result_array())) {
+            $this->db->insert("attendance",["employee_id"=>$employee_id]);
+            $insert_id = $this->db->insert_id();
+            return $insert_id;
+        }
+        return 0;
+    }
+
 }
 
 class PresenceMDL

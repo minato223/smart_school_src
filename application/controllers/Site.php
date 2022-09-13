@@ -88,7 +88,6 @@ class Site extends Public_Controller
             } else {
                 $lang_array = array('lang_id' => $setting_result[0]['lang_id'], 'language' => $setting_result[0]['language']);
             }
-            
             if ($result) {
                 if ($result->is_active) {
                     if ($result->surname != "") {
@@ -128,8 +127,7 @@ class Site extends Public_Controller
                     $role      = $this->customlib->getStaffRole();
                     $role_name = json_decode($role)->name;
                     $this->customlib->setUserLog($this->input->post('username'), $role_name);
-                    
-                    // print_r(isset($_SESSION['redirect_to']));
+                    // print_r($_REQUEST);
                     // die();
                     if (isset($_SESSION['redirect_to'])) {
                         redirect($_SESSION['redirect_to']);
