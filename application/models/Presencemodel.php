@@ -43,27 +43,12 @@ class PresenceMDL
     const BEGIN = 8;
     private $id;
     private $authDateTime;
-    private $authDate;
-    private $authTime;
-    private $direction;
-    private $deviceName;
-    private $deviceSN;
-    private $username;
-    private $cardNo;
-    private $retard;
     private PresenceUser $user;
 
     public function fromArray($data):PresenceMDL
     {
         $this->setId($data["id"]??"Null");
         $this->setAuthDateTime($data["authDateTime"]?$this->formatDate($data["authDateTime"]):"Null");
-        $this->setAuthDate($data["authDate"]?$this->formatDate($data["authDate"]):"Null");
-        $this->setAuthTime($data["authTime"]?$this->formatDate($data["authTime"]):"Null");
-        $this->setDirection($data["direction"]??"Null");
-        $this->setDeviceName($data["deviceName"]??"Null");
-        $this->setDeviceSN($data["deviceSN"]??"Null");
-        $this->setUsername($data["username"]??"Null");
-        $this->setCardNo($data["cardNo"]??"Null");
         $this->setUser((new PresenceUser())->fromArray($data));
 
         $morning = ($this->getAuthDateTime())->setTime(self::BEGIN,0);
@@ -74,7 +59,6 @@ class PresenceMDL
     public function formatDate($dateString)
     {
         return new DateTimeImmutable($dateString);
-        // return $date->format('Y-m-d H:i:s');
     }
 
     /**
@@ -126,106 +110,6 @@ class PresenceMDL
     }
 
     /**
-     * Get the value of authDate
-     */ 
-    public function getAuthDate()
-    {
-        return $this->authDate;
-    }
-
-    /**
-     * Set the value of authDate
-     *
-     * @return  self
-     */ 
-    public function setAuthDate($authDate)
-    {
-        $this->authDate = $authDate;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of authTime
-     */ 
-    public function getAuthTime()
-    {
-        return $this->authTime;
-    }
-
-    /**
-     * Set the value of authTime
-     *
-     * @return  self
-     */ 
-    public function setAuthTime($authTime)
-    {
-        $this->authTime = $authTime;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of direction
-     */ 
-    public function getDirection()
-    {
-        return $this->direction;
-    }
-
-    /**
-     * Set the value of direction
-     *
-     * @return  self
-     */ 
-    public function setDirection($direction)
-    {
-        $this->direction = $direction;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of deviceName
-     */ 
-    public function getDeviceName()
-    {
-        return $this->deviceName;
-    }
-
-    /**
-     * Set the value of deviceName
-     *
-     * @return  self
-     */ 
-    public function setDeviceName($deviceName)
-    {
-        $this->deviceName = $deviceName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of deviceSN
-     */ 
-    public function getDeviceSN()
-    {
-        return $this->deviceSN;
-    }
-
-    /**
-     * Set the value of deviceSN
-     *
-     * @return  self
-     */ 
-    public function setDeviceSN($deviceSN)
-    {
-        $this->deviceSN = $deviceSN;
-
-        return $this;
-    }
-
-    /**
      * Get the value of username
      */ 
     public function getUsername()
@@ -241,26 +125,6 @@ class PresenceMDL
     public function setUsername($username)
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of cardNo
-     */ 
-    public function getCardNo()
-    {
-        return $this->cardNo;
-    }
-
-    /**
-     * Set the value of cardNo
-     *
-     * @return  self
-     */ 
-    public function setCardNo($cardNo)
-    {
-        $this->cardNo = $cardNo;
 
         return $this;
     }
