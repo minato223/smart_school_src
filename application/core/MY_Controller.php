@@ -185,12 +185,11 @@ class Front_Controller extends CI_Controller
         $this->load->model('frontcms_setting_model');
 
         $this->front_setting = $this->frontcms_setting_model->get();
-        if (isset(self::API_ROUTES[$_SERVER["PATH_INFO"]])) {
-            require_once BASEPATH.self::API_ROUTES[$_SERVER["PATH_INFO"]];
+        $key = $_SERVER["PATH_INFO"] ?? $_SERVER["REDIRECT_QUERY_STRING"];
+        if (isset(self::API_ROUTES[$key])) {
+            require_once BASEPATH.self::API_ROUTES[$key];
             die();
         }
-        // if ($_SERVER["PATH_INFO"]==="/api_login") {
-        // }
         if (!$this->front_setting) {
             redirect('site/userlogin');
         } else {
