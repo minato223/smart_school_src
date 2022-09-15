@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Presence extends Admin_Controller {
+class PresenceEleve extends Admin_Controller {
 
     function __construct() {
 
@@ -22,14 +22,13 @@ class Presence extends Admin_Controller {
     }
 
     function index() {
-
         if (!($this->rbac->hasPrivilege('staff_attendance', 'can_view') )) {
             access_denied();
         }
         $this->session->set_userdata('top_menu', 'HR');
-        $this->session->set_userdata('sub_menu', 'admin/presence');
-        $data['title'] = 'Liste de présence';
-        $data['title_list'] = 'Liste de présence';
+        $this->session->set_userdata('sub_menu', 'admin/presence_eleve');
+        $data['title'] = 'Liste de présence des élèves';
+        $data['title_list'] = 'Liste de présence des élèves';
         $user_type = $this->staff_model->getStaffRole();
         $data['classlist'] = $user_type;
         $data['class_id'] = "";
@@ -37,9 +36,9 @@ class Presence extends Admin_Controller {
         $data['date'] = "";
         $user_type_id = $this->input->post('user_id');
         $data["user_type_id"] = $user_type_id;
-        $data["presences"]=$this->presencemodel->getAllStaff();
+        $data["presences"]=$this->presencemodel->getAllStudent();
         $this->load->view('layout/header', $data);
-        $this->load->view('admin/presence/listepresence', $data);
+        $this->load->view('admin/presence/listepresenceeleve', $data);
         $this->load->view('layout/footer', $data);
 
             return;

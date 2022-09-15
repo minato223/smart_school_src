@@ -10,10 +10,10 @@ class Presencemodel extends MY_Model {
     }
 
     /**
-     * Retourne la liste de présence des utilisateurs scanner
+     * Retourne la liste de présence des staffs scanner
      * @return PresenceMDL[]
      */
-    public function getAll():array
+    public function getAllStaff():array
     {
         // $query = $this->db->select('*')->get("attendance");
         $query = $this->db->select()->join("staff", "staff.employee_id = attendance.employee_id")->from('attendance')->get();
@@ -25,9 +25,30 @@ class Presencemodel extends MY_Model {
         return $array;
     }
 
+    /**
+     * Retourne la liste de présence des élèves scanner
+     * @return PresenceMDL[]
+     */
+    public function getAllStudent():array
+    {
+        $query = $this->db->select()->join("students", "students.admission_no = attendance.employee_id")->from('attendance')->get();
+        $array = [];
+
+        foreach ($query->result_array() as $value) {
+            $array[]=(new PresenceMDL())->fromArray($value);
+        }
+        return $array;
+    }
+
     public function createAttendance($employee_id)
     {
         $query = $this->db->select()->from('staff')->where('employee_id', $employee_id)->get();
+        if (!empty($query->result_array())) {
+            $this->db->insert("attendance",["employee_id"=>$employee_id]);
+            $insert_id = $this->db->insert_id();
+            return $insert_id;
+        }
+        $query = $this->db->select()->from('students')->where('admission_no', $employee_id)->get();
         if (!empty($query->result_array())) {
             $this->db->insert("attendance",["employee_id"=>$employee_id]);
             $insert_id = $this->db->insert_id();
@@ -180,8 +201,8 @@ class PresenceUser
     public function fromArray($data):PresenceUser
     {
         $this->setId($data["id"]??"Null");
-        $this->setName($data["name"]??"Null");
-        $this->setSurname($data["surname"]??"Null");
+        $this->setName($data["name"]??$data["firstname"]??"Null");
+        $this->setSurname($data["surname"]??$data["lastname"]??"Null");
         $this->setDepartment($data["department"]??"Null");
         return $this;
     }
