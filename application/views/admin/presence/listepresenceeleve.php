@@ -1,17 +1,18 @@
 <style>
-.retard {
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    background: red;
-    border-radius: 50%;
-}
-.retard.non{
-    background: greenyellow;
-}
+    .retard {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        background: red;
+        border-radius: 50%;
+    }
+
+    .retard.non {
+        background: greenyellow;
+    }
 </style>
 <?php
-ini_set("display_errors","1");
+ini_set("display_errors", "1");
 error_reporting(E_ALL);
 ?>
 <div class="content-wrapper" style="min-height: 946px;">
@@ -21,7 +22,7 @@ error_reporting(E_ALL);
     </section>
     <!-- Main content -->
     <section class="content">
-        <h3>Presence des professeurs</h3>
+        <h3>Presence des élèves</h3>
         <div class="row">
             <?php if (count($presences) <= 0) { ?>
                 <div class="alert alert-info">Aucun enrégistrement touvé</div>

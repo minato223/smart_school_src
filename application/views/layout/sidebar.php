@@ -731,7 +731,17 @@
                     <li class="<?php echo set_Submenu('admin/presence'); ?>"><a
                             href="<?php echo base_url(); ?>admin/presence"><i
                                 class="fa fa-angle-double-right"></i>
-                            Liste de présence</a></li>
+                            Liste de présence des professeurs</a></li>
+                    <?php
+                            }
+                            ?>
+                            <?php
+                            if ($this->rbac->hasPrivilege('can_view')) {
+                            ?>
+                    <li class="<?php echo set_Submenu('admin/presence_eleve'); ?>"><a
+                            href="<?php echo base_url(); ?>admin/presenceeleve"><i
+                                class="fa fa-angle-double-right"></i>
+                            Liste de présence des élèves</a></li>
                     <?php
                             }
                             ?>
