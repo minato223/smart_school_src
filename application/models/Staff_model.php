@@ -788,7 +788,7 @@ class Staff_model extends MY_Model
                 $response["code"] = 200;
                 $response["message"] = "Connexion reussi";
                 $response["token"] = $this->enc_lib->encrypt(json_encode($result));
-            }else{
+            } else {
                 $response["code"] = 200;
                 $response["message"] = "Privilèges insuffisants";
             }
@@ -796,20 +796,25 @@ class Staff_model extends MY_Model
         return $response;
     }
 
-    public function createAttendance($token,$id)
+    public function createAttendance($token, $id)
     {
         $result = json_decode($this->enc_lib->dycrypt($token));
         if (isset($result->roles)) {
             $presence_model = new Presencemodel();
-            $id = $presence_model->createAttendance($id);
-            if ($id===0) {
+            $result = $presence_model->createAttendance($id);
+            if ($result[0] === 0) {
                 $response["code"] = 404;
-                $response["message"] = "Utilisateur introuvable";
+                $response["message"] = $result[1];
             } else {
-                $response["code"] = 201;
-                $response["message"] = "Présence créer avec succes";
+                if ($result[0] === -1) {
+                    $response["code"] = 200;
+                } else {
+                    $response["code"] = 201;
+                }
+
+                $response["message"] = $result[1];
             }
-        }else{
+        } else {
             $response["code"] = 405;
             $response["message"] = "Token Invalide";
         }

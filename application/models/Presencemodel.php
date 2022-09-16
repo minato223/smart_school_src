@@ -42,19 +42,33 @@ class Presencemodel extends MY_Model {
 
     public function createAttendance($employee_id)
     {
-        $query = $this->db->select()->from('staff')->where('employee_id', $employee_id)->get();
+        $query = $this->db->query("SELECT * 
+        FROM attendance 
+        WHERE DATE(authDateTime) = CURDATE() AND employee_id = $employee_id");
+        $result = $query->result_array();
+        if (count($result)<=0) {
+            $query = $this->db->select()->from('staff')->where('employee_id', $employee_id)->get();
+        $message = "Aucune correspondance trouvée";
         if (!empty($query->result_array())) {
             $this->db->insert("attendance",["employee_id"=>$employee_id]);
             $insert_id = $this->db->insert_id();
-            return $insert_id;
+            $user = $query->result_array()[0];
+            $message = "Bonjour ".$user["name"]??""."".$user["surname"]??"";
+            return [$insert_id,$message];
         }
         $query = $this->db->select()->from('students')->where('admission_no', $employee_id)->get();
         if (!empty($query->result_array())) {
             $this->db->insert("attendance",["employee_id"=>$employee_id]);
             $insert_id = $this->db->insert_id();
-            return $insert_id;
+            $user = $query->result_array()[0];
+            $message = "Bonjour ".$user["firstname"]??""."".$user["middlename"]??""."".$user["lastname"]??"";
+            return [$insert_id,$message];
         }
-        return 0;
+        return [0,$message];
+        } else {
+        return [-1,"Vous êtes déjà enrégister aujourd'hui"];
+
+        }
     }
 
 }
@@ -77,7 +91,7 @@ class PresenceMDL
         return $this;
     }
 
-    public function formatDate($dateString)
+    static public function formatDate($dateString)
     {
         return new DateTimeImmutable($dateString);
     }
