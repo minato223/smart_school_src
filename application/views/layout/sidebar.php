@@ -172,7 +172,7 @@
                     <li class="<?php echo set_Submenu('bulkdelete'); ?>"><a
                             href="<?php echo site_url('student/bulkdelete'); ?>"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('bulk') . " " . $this->lang->line('delete'); ?></a>
+                            <?php echo $this->lang->line('delete') . " en " . $this->lang->line('bulk'); ?></a>
                     </li>
                     <?php
                                             }
@@ -488,7 +488,7 @@
                             ?>
                     <li class="<?php echo set_Submenu('Examinations/admitcard'); ?>"><a
                             href="<?php echo base_url(); ?>admin/admitcard"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('design') . " " . $this->lang->line('admit') . " " . $this->lang->line('card'); ?></a>
+                            <?php echo $this->lang->line('design') . " " . $this->lang->line('card') . " " . $this->lang->line('admission'); ?></a>
                     </li>
                     <?php
                             }
@@ -497,7 +497,7 @@
                     <li class="<?php echo set_Submenu('Examinations/examresult/admitcard'); ?>"><a
                             href="<?php echo base_url(); ?>admin/examresult/admitcard"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('print') . " " . $this->lang->line('admit') . " " . $this->lang->line('card'); ?></a>
+                            <?php echo $this->lang->line('print') . " " . $this->lang->line('card') . " " . $this->lang->line('admission'); ?></a>
                     </li>
                     <?php
                             }
