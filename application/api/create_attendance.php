@@ -15,7 +15,7 @@ if (!in_array($requestMethod, $allowedMethods)) {
     header($_SERVER["SERVER_PROTOCOL"] . " 405 Method Not Allowed", true, 405);
     exit;
 }
-if (isset(getallheaders()["authorization"])) {
+if (isset(getallheaders()["authorization"]) || isset(getallheaders()["Authorization"])) {
     $data = json_decode(file_get_contents("php://input"));
     $errors = [];
     if (!isset($data->code)) {
@@ -23,7 +23,8 @@ if (isset(getallheaders()["authorization"])) {
     }
     if (empty($errors)) {
         $code = htmlspecialchars(strip_tags($data->code));
-        $token = explode("Bearer ", getallheaders()["authorization"])[1];
+        $token = getallheaders()["authorization"] ?? getallheaders()["Authorization"];
+        $token = explode("Bearer ", $token)[1];
         $staff = new Staff_model();
         $response = $staff->createAttendance($token, $code);
         http_response_code($response["code"]);
