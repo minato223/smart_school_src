@@ -4,9 +4,11 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Presence extends Admin_Controller {
+class Presence extends Admin_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
 
         parent::__construct();
         $this->load->helper('file');
@@ -21,9 +23,10 @@ class Presence extends Admin_Controller {
         $this->load->model("payroll_model");
     }
 
-    function index() {
+    function index()
+    {
 
-        if (!($this->rbac->hasPrivilege('staff_attendance', 'can_view') )) {
+        if (!($this->rbac->hasPrivilege('staff_attendance', 'can_view'))) {
             access_denied();
         }
         $this->session->set_userdata('top_menu', 'HR');
@@ -37,12 +40,22 @@ class Presence extends Admin_Controller {
         $data['date'] = "";
         $user_type_id = $this->input->post('user_id');
         $data["user_type_id"] = $user_type_id;
-        $data["presences"]=$this->presencemodel->getAllStaff();
+        $data["presences"] = $this->presencemodel->getAttendance();
+        if (isset($_POST) && !empty($_POST["date"])) {
+            $post_date = $_POST["date"];
+            try {
+                $new_date = new DateTimeImmutable($post_date);
+            } catch (\Throwable $th) {
+                $new_date = new DateTimeImmutable();
+            }
+            $formated_date = $new_date->format("Y-m-d");
+            $data["presences"] = $this->presencemodel->getAttendance(null, $formated_date);
+        }
         $this->load->view('layout/header', $data);
         $this->load->view('admin/presence/listepresence', $data);
         $this->load->view('layout/footer', $data);
 
-            return;
+        return;
         if (!(isset($user_type_id))) {
             $this->load->view('layout/header', $data);
             $this->load->view('admin/staffattendance/staffattendancelist', $data);
@@ -128,5 +141,3 @@ class Presence extends Admin_Controller {
         }
     }
 }
-
-?>

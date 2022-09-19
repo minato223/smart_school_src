@@ -40,3 +40,18 @@
 > ## Plan de cours
 * #### Gerer l'état du syllabus
   ##### `Affiche l'arborescence des léçons`
+> ## Important
+   ##### `Toujours s'assurer que la version remote à cette ligne de code `
+
+  ##### `application/models/Presencemodel.php`
+```
+const BEGIN = 6;
+
+
+public function getFormattedAuthDateTime()
+    {
+        $date = $this->authDateTime->format('Y-m-d H:i:s');
+        $newDate = date('Y-m-d H:i:s', strtotime($date. ' -2 hours'));
+        return $newDate;
+    }
+```
