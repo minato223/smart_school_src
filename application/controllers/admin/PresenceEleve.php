@@ -36,7 +36,17 @@ class PresenceEleve extends Admin_Controller {
         $data['date'] = "";
         $user_type_id = $this->input->post('user_id');
         $data["user_type_id"] = $user_type_id;
-        $data["presences"]=$this->presencemodel->getAllStudent();
+        $data["presences"] = $this->presencemodel->getAttendance("student");
+        if (isset($_POST) && !empty($_POST["date"])) {
+            $post_date = $_POST["date"];
+            try {
+                $new_date = new DateTimeImmutable($post_date);
+            } catch (\Throwable $th) {
+                $new_date = new DateTimeImmutable();
+            }
+            $formated_date = $new_date->format("Y-m-d");
+            $data["presences"] = $this->presencemodel->getAttendance("student", $formated_date);
+        }
         $this->load->view('layout/header', $data);
         $this->load->view('admin/presence/listepresenceeleve', $data);
         $this->load->view('layout/footer', $data);

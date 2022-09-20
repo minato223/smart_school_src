@@ -13,37 +13,6 @@ class Presencemodel extends MY_Model
     }
 
     /**
-     * Retourne la liste de présence des staffs scanner
-     * @return PresenceMDL[]
-     */
-    public function getAllStaff(): array
-    {
-        // $query = $this->db->select('*')->get("attendance");
-        $query = $this->db->select()->join("staff", "staff.employee_id = attendance.employee_id")->from('attendance')->get();
-        $array = [];
-
-        foreach ($query->result_array() as $value) {
-            $array[] = (new PresenceMDL())->fromArray($value);
-        }
-        return $array;
-    }
-
-    /**
-     * Retourne la liste de présence des élèves scanner
-     * @return PresenceMDL[]
-     */
-    public function getAllStudent(): array
-    {
-        $query = $this->db->select()->join("students", "students.admission_no = attendance.employee_id")->from('attendance')->get();
-        $array = [];
-
-        foreach ($query->result_array() as $value) {
-            $array[] = (new PresenceMDL())->fromArray($value);
-        }
-        return $array;
-    }
-
-    /**
      * Retourne la liste de présence des élèves scanner
      * @return PresenceMDL[]
      */

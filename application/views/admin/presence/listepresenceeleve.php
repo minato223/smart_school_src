@@ -22,30 +22,70 @@ error_reporting(E_ALL);
     </section>
     <!-- Main content -->
     <section class="content">
-        <h3>Presence des élèves</h3>
-        <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <form id='form1' action="<?php echo site_url('admin/presence') ?>" method="post" accept-charset="utf-8">
+                        <div class="box-body">
+                            <?php
+                            if ($this->session->flashdata('msg')) {
+
+                                echo $this->session->flashdata('msg');
+                            }
+                            ?>
+                            <?php echo $this->customlib->getCSRF(); ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h2 class="box-title"><i class="fa fa-users"></i> Liste de présence des élèves</h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">
+                                            Réchercher par date
+                                        </label>
+                                        <input name="date" placeholder="" type="text" class="form-control date" value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
+                                        <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" name="search" value="search" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
             <?php if (count($presences) <= 0) { ?>
                 <div class="alert alert-info">Aucun enrégistrement touvé</div>
             <?php } else { ?>
-                <table class="table">
-                    <thead>
-                        <th>Utilisateur</th>
-                        <th>Heure d'Arrivée</th>
-                        <th>Retard</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($presences as $presence) { ?>
-                            <tr>
-                                <td><?php echo $presence->getUser()->getName() . " " . $presence->getUser()->getSurname() ?></td>
-                                <td><?php echo explode(" ", $presence->getFormattedAuthDateTime())[1] ?></td>
-                                <td><span class="retard <?php echo $presence->getRetard() == 1 ? 'oui' : 'non' ?>"></span></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <table class="table">
+                            <thead>
+                                <th>Utilisateur</th>
+                                <th>Heure d'Arrivée</th>
+                                <th>Retard</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($presences as $presence) { ?>
+                                    <tr>
+                                        <td><?php echo $presence->getUser()->getName() . " " . $presence->getUser()->getSurname() ?></td>
+                                        <td><?php echo explode(" ", $presence->getFormattedAuthDateTime())[1] ?></td>
+                                        <td><span class="retard <?php echo $presence->getRetard() == 1 ? 'oui' : 'non' ?>"></span></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             <?php } ?>
-
         </div>
-
     </section>
+</div>
+</section>
 </div>
