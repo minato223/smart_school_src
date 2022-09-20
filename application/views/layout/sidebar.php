@@ -144,7 +144,7 @@
                     <li class="<?php echo set_Submenu('onlinestudent'); ?>"><a
                             href="<?php echo site_url('admin/onlinestudent'); ?>"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('online') . " " . $this->lang->line('admission'); ?></a></li>
+                            <?php echo $this->lang->line('admission') . " " . $this->lang->line('online'); ?></a></li>
 
                     <?php
                                                 }
@@ -440,7 +440,7 @@
 
                     <li class="<?php echo set_Submenu('Attendance/approve_leave'); ?>"><a
                             href="<?php echo base_url(); ?>admin/approve_leave"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('approve') . " " . $this->lang->line('leave'); ?></a></li>
+                            <?php echo $this->lang->line('approve') . " un " . $this->lang->line('leave'); ?></a></li>
                     <?php } ?>
                 </ul>
             </li>
@@ -470,7 +470,7 @@
                     <?php if ($this->rbac->hasPrivilege('exam_group', 'can_view')) { ?>
                     <li class="<?php echo set_Submenu('Examinations/examgroup'); ?>"><a
                             href="<?php echo site_url('admin/examgroup'); ?>"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('exam') . " " . $this->lang->line('group') ?></a></li>
+                            <?php echo $this->lang->line('group') . "d'" . $this->lang->line('exman') ?></a></li>
                     <?php }
                             ?>
                     <li class="<?php echo set_Submenu('Examinations/Examschedule'); ?>"><a
@@ -488,7 +488,7 @@
                             ?>
                     <li class="<?php echo set_Submenu('Examinations/admitcard'); ?>"><a
                             href="<?php echo base_url(); ?>admin/admitcard"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('design') . " " . $this->lang->line('card') . " " . $this->lang->line('admission'); ?></a>
+                            <?php echo $this->lang->line('design') . " " . $this->lang->line('progr_exam'); ?></a>
                     </li>
                     <?php
                             }
@@ -497,7 +497,7 @@
                     <li class="<?php echo set_Submenu('Examinations/examresult/admitcard'); ?>"><a
                             href="<?php echo base_url(); ?>admin/examresult/admitcard"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('print') . " " . $this->lang->line('card') . " " . $this->lang->line('admission'); ?></a>
+                            <?php echo $this->lang->line('print') . " " . $this->lang->line('progr_exam');?></a>
                     </li>
                     <?php
                             }
@@ -539,7 +539,7 @@
             <li class="treeview <?php echo set_Topmenu('Online_Examinations'); ?>">
                 <a href="#">
                     <i class="fa fa-rss ftlayer"></i>
-                    <span><?php echo $this->lang->line('online') . " " . $this->lang->line('examinations'); ?></span> <i
+                    <span><?php echo $this->lang->line('examinations') . " " . $this->lang->line('online'); ?></span> <i
                         class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
@@ -548,14 +548,14 @@
                             ?>
                     <li class="<?php echo set_Submenu('Online_Examinations/Onlineexam'); ?>"><a
                             href="<?php echo base_url(); ?>admin/onlineexam"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('online') . " " . $this->lang->line('exam'); ?></a></li>
+                            <?php echo $this->lang->line('exam') . " " . $this->lang->line('online'); ?></a></li>
                     <?php
                             }
                             if ($this->rbac->hasPrivilege('question_bank', 'can_view')) {
                             ?>
                     <li class="<?php echo set_Submenu('Online_Examinations/question'); ?>"><a
                             href="<?php echo base_url(); ?>admin/question"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('question') . " " . $this->lang->line('bank'); ?></a></li>
+                            <?php echo $this->lang->line('bank') . " " . $this->lang->line('question'); ?></a></li>
                     <?php
                             }
                             ?>
@@ -639,7 +639,7 @@
                     <li class="<?php echo set_Submenu('Academics/timetable/mytimetable'); ?>"><a
                             href="<?php echo base_url(); ?>admin/timetable/mytimetable"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('teachers') . " " . $this->lang->line('timetable') ?></a></li>
+                            <?php echo $this->lang->line('timetable') . " " . $this->lang->line('teachers') ?></a></li>
                     <?php
                             }
 
@@ -665,7 +665,7 @@
                     <li class="<?php echo set_Submenu('subjectgroup/index'); ?>"><a
                             href="<?php echo base_url('admin/subjectgroup'); ?>"><i
                                 class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('subject') . " " . $this->lang->line('group') ?></a></li>
+                            <?php echo $this->lang->line('group') . " de " . $this->lang->line('subject') ?></a></li>
                     <?php
                             }
                             if ($this->rbac->hasPrivilege('subject', 'can_view')) {
@@ -795,7 +795,7 @@
                             ?>
                     <li class="<?php echo set_Submenu('HR/rating'); ?>"><a
                             href="<?php echo base_url(); ?>admin/staff/rating"><i class="fa fa-angle-double-right"></i>
-                            <?php echo $this->lang->line('teachers') . " " . $this->lang->line('rating'); ?></a></li>
+                            <?php echo $this->lang->line('rating') . " des " . $this->lang->line('teachers'); ?></a></li>
                     <?php
                             }
 
@@ -1320,8 +1320,8 @@ online_course_offline_payment', 'can_view')) ||
                             ?>
                     <li class="<?php echo set_Submenu('admin/certificate'); ?>"><a
                             href="<?php echo base_url(); ?>admin/certificate/"><i
-                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('student'); ?>
-                            <?php echo $this->lang->line('certificate'); ?></a></li>
+                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('certificate'); ?> <?php echo $this->lang->line("d'"); ?>
+                            <?php echo $this->lang->line('student'); ?></a></li>
                     <?php
                             }
                             if ($this->rbac->hasPrivilege('generate_certificate', 'can_view')) {
@@ -1336,8 +1336,8 @@ online_course_offline_payment', 'can_view')) ||
                             ?>
                     <li class="<?php echo set_Submenu('admin/studentidcard'); ?>"><a
                             href="<?php echo base_url('admin/studentidcard/'); ?>"><i
-                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('student'); ?>
-                            <?php echo $this->lang->line('icard'); ?></a></li>
+                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('icard'); ?>
+                            <?php echo $this->lang->line('student'); ?></a></li>
                     <?php
                             }
                             if ($this->rbac->hasPrivilege('generate_id_card', 'can_view')) {
@@ -1352,8 +1352,8 @@ online_course_offline_payment', 'can_view')) ||
                             ?>
                     <li class="<?php echo set_Submenu('admin/staffidcard'); ?>"><a
                             href="<?php echo base_url('admin/staffidcard/'); ?>"><i
-                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('staff'); ?>
-                            <?php echo $this->lang->line('icard'); ?></a></li>
+                                class="fa fa-angle-double-right"></i><?php echo $this->lang->line('icard'); ?>
+                            <?php echo $this->lang->line('staff'); ?></a></li>
                     <?php
                             }
                             if ($this->rbac->hasPrivilege('generate_staff_id_card', 'can_view')) {
