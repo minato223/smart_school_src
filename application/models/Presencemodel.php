@@ -4,7 +4,12 @@ error_reporting(E_ALL);
 
 class Presencemodel extends MY_Model
 {
-
+    const PRIMARY_KEY = 7;
+    const MATERNAL_KEY = 4;
+    const PROF_CATEGORIES = [
+        self::PRIMARY_KEY => "Enseignant du Primaire",
+        self::MATERNAL_KEY => "Enseignant de la Maternelle",
+    ];
     public function __construct()
     {
         parent::__construct();
@@ -16,18 +21,26 @@ class Presencemodel extends MY_Model
      * Retourne la liste de présence des élèves scanner
      * @return PresenceMDL[]
      */
-    public function getAttendance($attendance_type = null, $date = null): array
+    public function getAttendance($attendance_type = null, $date = null, $prof_category = null): array
     {
-        $sql = "SELECT * 
-        FROM attendance RIGHT JOIN staff ON staff.employee_id = attendance.employee_id";
+        if ($prof_category == null) {
+            $prof_category = self::PRIMARY_KEY;
+        } else {
+            if (!isset(self::PROF_CATEGORIES[$prof_category])) {
+                $prof_category = self::PRIMARY_KEY;
+            }
+        }
+        $sql = "SELECT * FROM attendance JOIN staff ON staff.employee_id = attendance.employee_id JOIN staff_roles ON staff_roles.staff_id = staff.id AND staff_roles.role_id = $prof_category";
+        // echo json_encode($this->db->query($sql)->result_array());
+        // die();
         if (strtolower($attendance_type) === "student") {
             $sql = "SELECT * 
             FROM attendance RIGHT JOIN students ON students.admission_no = attendance.employee_id";
         }
-        if ($date!==null) {
-            $sql.=" WHERE authDateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
+        if ($date !== null) {
+            $sql .= " WHERE authDateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
         } else {
-            $sql.=" WHERE DATE(authDateTime) = CURDATE()";
+            $sql .= " WHERE DATE(authDateTime) = CURDATE()";
         }
         $array = [];
         try {
@@ -40,6 +53,35 @@ class Presencemodel extends MY_Model
         }
         return $array;
     }
+
+    /**
+     * Retourne la liste de présence des élèves scanner
+     * @return PresenceMDL[]
+     */
+    // public function getAttendance($attendance_type = null, $date = null): array
+    // {
+    //     $sql = "SELECT * 
+    //     FROM attendance RIGHT JOIN staff ON staff.employee_id = attendance.employee_id";
+    //     if (strtolower($attendance_type) === "student") {
+    //         $sql = "SELECT * 
+    //         FROM attendance RIGHT JOIN students ON students.admission_no = attendance.employee_id";
+    //     }
+    //     if ($date!==null) {
+    //         $sql.=" WHERE authDateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
+    //     } else {
+    //         $sql.=" WHERE DATE(authDateTime) = CURDATE()";
+    //     }
+    //     $array = [];
+    //     try {
+    //         $query = $this->db->query($sql);
+    //         foreach ($query->result_array() as $value) {
+    //             $array[] = (new PresenceMDL())->fromArray($value);
+    //         }
+    //     } catch (\Throwable $th) {
+    //         die("Une exception");
+    //     }
+    //     return $array;
+    // }
 
     public function createAttendance($employee_id)
     {

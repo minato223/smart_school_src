@@ -39,12 +39,35 @@ error_reporting(E_ALL);
                                     <h2 class="box-title"><i class="fa fa-users"></i> Liste de présence des professeurs</h2>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="row">
+                                    <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">
-                                            Réchercher par date
-                                        </label>
-                                        <input name="date" placeholder="" type="text" class="form-control date" value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
-                                        <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                        <label for="category">La catégorie d'enseignant</label>
+                                        <select  id="category" name="category" class="form-control" >
+                                            <?php
+                                            foreach ($prof_categories as $key => $value) {
+                                                ?>
+                                                <option value="<?php echo $key ?>" <?php
+                                                if ($current_category == $key) {
+                                                    echo "selected =selected";
+                                                }
+                                                ?>><?php echo $value ?></option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                        </select>
+                                        <span class="text-danger"><?php echo form_error('role'); ?></span>
+                                    </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Réchercher par date
+                                                </label>
+                                                <input name="date" placeholder="" type="text" class="form-control date" value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
+                                                <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

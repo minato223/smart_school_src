@@ -41,15 +41,21 @@ class Presence extends Admin_Controller
         $user_type_id = $this->input->post('user_id');
         $data["user_type_id"] = $user_type_id;
         $data["presences"] = $this->presencemodel->getAttendance();
+        $data["prof_categories"] = $this->presencemodel::PROF_CATEGORIES;
+        $data["current_category"] = $this->presencemodel::PRIMARY_KEY;
         if (isset($_POST) && !empty($_POST["date"])) {
             $post_date = $_POST["date"];
+            $category = $_POST['category'] ?? null;
             try {
                 $new_date = new DateTimeImmutable($post_date);
             } catch (\Throwable $th) {
                 $new_date = new DateTimeImmutable();
             }
             $formated_date = $new_date->format("Y-m-d");
-            $data["presences"] = $this->presencemodel->getAttendance(null, $formated_date);
+            $data["presences"] = $this->presencemodel->getAttendance(null, $formated_date, $category);
+            if (isset($this->presencemodel::PROF_CATEGORIES[$category])) {
+                $data["current_category"] = $category;
+            }
         }
         $this->load->view('layout/header', $data);
         $this->load->view('admin/presence/listepresence', $data);
