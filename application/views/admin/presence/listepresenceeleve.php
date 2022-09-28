@@ -68,13 +68,15 @@ error_reporting(E_ALL);
                             <thead>
                                 <th>Utilisateur</th>
                                 <th>Heure d'Arrivée</th>
+                                <th>Heure de sortie</th>
                                 <th>Retard</th>
                             </thead>
                             <tbody>
                                 <?php foreach ($presences as $presence) { ?>
                                     <tr>
                                         <td><?php echo $presence->getUser()->getName() . " " . $presence->getUser()->getSurname() ?></td>
-                                        <td><?php echo explode(" ", $presence->getFormattedAuthDateTime())[1] ?></td>
+                                        <td><?php echo $presence->getFormattedAuthDateTime() ?></td>
+                                        <td><?php echo $presence->getFormattedExitDateTime() ?></td>
                                         <td><span class="retard <?php echo $presence->getRetard() == 1 ? 'oui' : 'non' ?>"></span></td>
                                     </tr>
                                 <?php } ?>
